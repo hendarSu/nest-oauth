@@ -11,6 +11,12 @@ export class User {
 
   @Prop({ required: true,  index:true, unique: true, type: String })
   email: string;
+
+  @Prop({ require: false, type: String })
+  profile: string;
+
+  @Prop({ require: false, type: String })
+  name: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

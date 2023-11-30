@@ -10,9 +10,14 @@ import { GoogleStrategy } from 'utils/google.strategy';
 import { User, UserSchema } from 'utils/database/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import jwtConfig from 'utils/strategy/config';
+import { JwtStrategy } from 'utils/strategy/jwt.strategy';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [jwtConfig],
+    }),
     PassportModule.register({ defaultStrategy: 'google' }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.registerAsync({
@@ -20,15 +25,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         ConfigModule
       ],
       useFactory: (configService) => ({
-        secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: 'JWT_EXPIRES' },
+        secret: configService.get('jwt.secret'),
+        signOptions: { expiresIn: '1d' },
       }),
       inject: [
         ConfigService
       ],
     }),
   ],
-  providers: [ConfigService, AuthService, GoogleStrategy],
+  providers: [
+    ConfigService,
+    AuthService,
+    GoogleStrategy,
+    JwtStrategy
+  ],
   controllers: [AuthController],
 })
 export class AuthModule { }
