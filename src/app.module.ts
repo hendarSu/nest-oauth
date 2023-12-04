@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import mongodbConfig from 'utils/database/config';
+import mongodbConfig from 'utils/config';
 
 @Module({
   imports: [
