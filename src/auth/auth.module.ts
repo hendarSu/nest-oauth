@@ -10,7 +10,7 @@ import { GoogleStrategy } from 'utils/google.strategy';
 import { User, UserSchema } from 'utils/database/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import jwtConfig from 'utils/strategy/config';
+import jwtConfig from 'utils/config';
 import { JwtStrategy } from 'utils/strategy/jwt.strategy';
 
 @Module({
